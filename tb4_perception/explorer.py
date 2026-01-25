@@ -32,14 +32,13 @@ class ExplorerNode(Node):
             #pick random floats
             random_x = random.uniform(-5,5)
             random_y = random.uniform(-5,5)
-            # 2. MATH: Convert Meters -> Map Grid Index
-            # (Subtract origin offset, divide by resolution)
+            # Convert Meters to Map Grid Index
             local_x = random_x - self.latest_map.info.origin.position.x
             local_y = random_y - self.latest_map.info.origin.position.y
-            # Convert to grid indices
+            # scale to grid indices
             grid_x = int(local_x / self.latest_map.info.resolution)
             grid_y = int(local_y / self.latest_map.info.resolution)
-            # Calculate 1D index
+            # flatten 2D index to 1D list index
             width = self.latest_map.info.width
             height = self.latest_map.info.height
             index = (grid_y * width) + grid_x
@@ -49,7 +48,7 @@ class ExplorerNode(Node):
             #check safety
             if self.latest_map.data[index] != 0:
                continue
-            
+
             # We check Up, Down, Left, Right indices
             neighbors = [
                 index + 1, #right
