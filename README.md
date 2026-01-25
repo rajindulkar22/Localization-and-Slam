@@ -2,7 +2,7 @@
 
 ![ROS 2 Humble](https://img.shields.io/badge/ROS_2-Humble-blue) ![Python](https://img.shields.io/badge/Language-Python_3-yellow) ![Gazebo](https://img.shields.io/badge/Sim-Gazebo-orange) ![Nav2](https://img.shields.io/badge/Nav2-Stack-green)
 
-## 📖 Overview
+##  Overview
 This repository documents a comprehensive engineering journey into **ROS 2 Robotics programming**. 
 
 Rather than simply using pre-made packages, this project focused on **first-principles engineering**. I built core robotics algorithms (Occupancy Grid Mapping, Particle Filters) from scratch in Python before integrating standard industry tools (SLAM Toolbox, Nav2) for the final autonomous system.
