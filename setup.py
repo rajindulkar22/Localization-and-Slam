@@ -25,7 +25,9 @@ setup(
     entry_points={
         'console_scripts': [
             'lidar_reader = tb4_perception.lidar_reader:main',
-            'safety_visualizer = tb4_perception.safety_visualizer:main'
+            'safety_visualizer = tb4_perception.safety_visualizer:main',
+            'mapping_node = tb4_perception.mapping_node:main',
+            'particle_filter = tb4_perception.particle_filter:main'
         ],
     },
 )

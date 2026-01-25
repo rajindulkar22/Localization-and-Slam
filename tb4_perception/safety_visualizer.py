@@ -33,7 +33,7 @@ class SafetyVisualizer(Node):
             10, 
             callback_group=self.callback_group
         )
-        
+        self.distance_history =[]
         self.tf_buffer = Buffer()
         self.tf_listener = TransformListener(self.tf_buffer, self)
         self.get_logger().info('Safety visualizer initialized')
@@ -46,23 +46,27 @@ class SafetyVisualizer(Node):
             current_range = msg.ranges[i]
             if math.isnan(current_range) or math.isinf(current_range):
                 continue
+            if current_range<0.3:
+                continue
             if current_range < shortest_dist:
                 shortest_dist = current_range
                 shortest_index = i
+            if shortest_index == -1:
+                return
+
+        self.distance_history.append(shortest_dist)
+        if len(self.distance_history)>10:
+            self.distance_history.pop(0)
+        average_distance = sum(self.distance_history)/len(self.distance_history)
         
-        if shortest_index == -1:
-            return
 
         angle = msg.angle_min + shortest_index * msg.angle_increment
-        x = shortest_dist * math.cos(angle)
-        y = shortest_dist * math.sin(angle)
+        x = average_distance * math.cos(angle)
+        y = average_distance * math.sin(angle)
 
+        # Create Point (Time Zero)
         msg_point = PointStamped()
         msg_point.header.frame_id = msg.header.frame_id 
-        
-        # --- THE FIX: TIME ZERO ---
-        # We explicitly tell TF: "I don't care about the exact millisecond.
-        # Just give me the LATEST position you have."
         msg_point.header.stamp = Time().to_msg() 
         
         msg_point.point.x = x
