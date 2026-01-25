@@ -28,7 +28,8 @@ setup(
             'safety_visualizer = tb4_perception.safety_visualizer:main',
             'mapping_node = tb4_perception.mapping_node:main',
             'particle_filter = tb4_perception.particle_filter:main',
-            'patrol = tb4_perception.patrol:main'
+            'patrol = tb4_perception.patrol:main',
+            'explorer = tb4_perception.explorer:main'
         ],
     },
 )
