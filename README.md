@@ -13,24 +13,24 @@ Rather than simply using pre-made packages, this project focused on **first-prin
 
 ##  Architecture & Modules
 
-### 🔹 Phase 1: Perception & Kinematics
+###  Phase 1: Perception & Kinematics
 * **Raw Lidar Processing:** Developed nodes to read raw `/scan` data, converting Polar $(r, \theta)$ measurements to Cartesian $(x,y)$ coordinates for obstacle detection.
 * **TF2 Transforms:** Implemented listeners to mathematically transform sensor data from the `laser_link` to the `base_link` frame, compensating for sensor mounting offsets.
 * **Noise Filtering:** Applied Moving Average filters to clean noisy sensor readings before processing.
 
-### 🔹 Phase 2: Mapping from Scratch
+###  Phase 2: Mapping from Scratch
 * **Custom Mapper Node:** Built a manual publisher for `nav_msgs/OccupancyGrid` messages.
 * **Raycasting:** Implemented **Bresenham’s Line Algorithm** to simulate laser beams clearing free space between the robot and the detected wall.
 * **Probabilistic Updates:** Used **Log-Odds (Bayes Filter)** math to update cell occupancy probabilities dynamically based on new sensor data.
 * **Map Artifacts:** Handled grid resolution, origin offsets, and coordinate conversion (World Meters $\leftrightarrow$ Grid Pixels).
 
-### 🔹 Phase 3: Localization / The Particle Filter
+###  Phase 3: Localization / The Particle Filter
 * **Monte Carlo Localization (MCL):** Coded a custom localization engine from the ground up.
 * **Motion Model:** Propagated particle states based on noisy odometry data (handling drift).
 * **Sensor Model:** Implemented Likelihood Fields to weight particles based on how well their simulated scans matched the real world.
 * **Resampling:** Implemented "Survival of the Fittest" (Low variance resampling) to converge on the robot's true pose.
 
-### 🔹 Phase 4: Autonomy & Exploration
+###  Phase 4: Autonomy & Exploration
 * **Graph SLAM:** Configured `slam_toolbox` for loop closure and consistent large-scale mapping.
 * **Nav2 Integration:** Tuned Global and Local Costmap inflation layers to allow safe navigation in tight mazes.
 * **Frontier Exploration:** Developed a custom Python node (`explorer.py`) that:
